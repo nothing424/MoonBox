@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoonBox &#x2014; Masuk...</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    body { display:flex; align-items:center; justify-content:center; min-height:100vh; }
+    .cb-box {
+      text-align:center;
+      background:var(--glass);
+      backdrop-filter:blur(24px);
+      border:1px solid var(--glass-border);
+      border-radius:var(--radius2);
+      padding:48px 40px;
+      max-width:380px; width:90%;
+      box-shadow:var(--shadow);
+    }
+    .cb-icon { font-size:3rem; margin-bottom:20px; }
+    .cb-title { font-size:1.3rem; font-weight:800; margin-bottom:8px; }
+    .cb-sub { color:var(--text2); font-size:.9rem; }
+    .spinner {
+      width:36px; height:36px;
+      border:3px solid var(--border);
+      border-top-color:var(--accent);
+      border-radius:50%;
+      animation:spin .8s linear infinite;
+      margin:20px auto 0;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+  </style>
+</head>
+<body>
+<div class="cb-box">
+  <div class="cb-icon">&#x1F511;</div>
+  <div class="cb-title">Memproses Login...</div>
+  <div class="cb-sub">Mohon tunggu sebentar</div>
+  <div class="spinner"></div>
+</div>
+
+<script src="/js/auth.js"></script>
+<script>
+(async () => {
+  // Parse hash fragment from Supabase OAuth redirect
+  // Format: #access_token=xxx&refresh_token=yyy&expires_at=zzz&...
+  const hash   = window.location.hash.substring(1);
+  const params = new URLSearchParams(hash);
+
+  const accessToken  = params.get('access_token');
+  const refreshToken = params.get('refresh_token');
+  const expiresAt    = params.get('expires_at');
+  const tokenType    = params.get('token_type');
+
+  if (!accessToken) {
+    document.querySelector('.cb-title').textContent = 'Login Gagal';
+    document.querySelector('.cb-sub').textContent   = 'Token tidak ditemukan. Coba lagi.';
+    document.querySelector('.cb-icon').textContent  = '\u274C';
+    document.querySelector('.spinner').style.display = 'none';
+    setTimeout(() => window.location.href = '/', 3000);
+    return;
+  }
+
+  // Verify token & get user info
+  try {
+    const res = await fetch('/api/auth?action=me', {
+      headers: { 'Authorization': 'Bearer ' + accessToken }
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      // Save session to localStorage
+      localStorage.setItem('av_session', JSON.stringify({
+        user:         data.user,
+        token:        accessToken,
+        refreshToken: refreshToken,
+        expiresAt:    expiresAt ? parseInt(expiresAt) : (Date.now()/1000 + 3600)
+      }));
+
+      document.querySelector('.cb-icon').textContent  = '\u2705';
+      document.querySelector('.cb-title').textContent = 'Login Berhasil!';
+      document.querySelector('.cb-sub').textContent   = 'Selamat datang, ' + data.user.username;
+      document.querySelector('.spinner').style.display = 'none';
+
+      setTimeout(() => window.location.href = '/', 1000);
+    } else {
+      throw new Error(data.error);
+    }
+  } catch (e) {
+    document.querySelector('.cb-title').textContent = 'Verifikasi Gagal';
+    document.querySelector('.cb-sub').textContent   = e.message || 'Coba login ulang.';
+    document.querySelector('.cb-icon').textContent  = '\u274C';
+    document.querySelector('.spinner').style.display = 'none';
+    setTimeout(() => window.location.href = '/', 3000);
+  }
+})();
+</script>
+</body>
+</html>

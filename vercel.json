@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "name": "moonbox",
+  "builds": [
+    { "src": "api/**/*.js", "use": "@vercel/node" },
+    { "src": "public/**",   "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)",     "dest": "/public/$1" }
+  ],
+  "env": {
+    "JIKAN_BASE_URL":       "https://api.jikan.moe/v4",
+    "TMDB_BASE_URL":        "https://api.themoviedb.org/3",
+    "TMDB_IMG_BASE":        "https://image.tmdb.org/t/p/w500",
+    "TMDB_API_KEY":         "@tmdb_api_key",
+    "SUPABASE_URL":         "@supabase_url",
+    "SUPABASE_SERVICE_KEY": "@supabase_service_key",
+    "SUPABASE_ANON_KEY":    "@supabase_anon_key"
+  }
+}

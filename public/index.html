@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ═══ SEO / Tab Title & Favicon ═══ -->
+  <title>MoonBox &#x2014; Anime &middot; Manga &middot; Manhwa</title>
+  <meta name="description" content="Nonton Anime, Donghua, Dracin, Drakor dan Baca Manga, Manhwa di MoonBox.">
+  <meta name="application-name" content="MoonBox">
+
+  <!-- Favicon pakai logo asli -->
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/vwr8lu.png">
+  <link rel="apple-touch-icon" href="https://files.catbox.moe/vwr8lu.png">
+
+  <!-- Open Graph (tampil saat link di-share di WA/Telegram/dll) -->
+  <meta property="og:title" content="MoonBox">
+  <meta property="og:description" content="Nonton Anime, Donghua, Dracin, Drakor dan Baca Manga, Manhwa.">
+  <meta property="og:image" content="https://files.catbox.moe/vwr8lu.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="MoonBox">
+  <meta name="twitter:image" content="https://files.catbox.moe/vwr8lu.png">
+
+  <!-- Supabase config -->
+  <meta name="supabase-url"  content="YOUR_SUPABASE_URL">
+  <meta name="supabase-anon" content="YOUR_SUPABASE_ANON_KEY">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .nav-switcher { overflow-x: auto; scrollbar-width: none; }
+    .nav-switcher::-webkit-scrollbar { display: none; }
+
+    /* Logo image in nav & login */
+    .logo-img {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 8px; }
+    .login-logo-mark { display: inline-flex; align-items: center; gap: 10px; }
+    .login-logo-img { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══ -->
+<div id="loginScreen">
+  <div class="login-wrap">
+    <div class="login-logo">
+      <a class="login-logo-mark" href="#">
+        <img class="login-logo-img" src="https://files.catbox.moe/vwr8lu.png" alt="MoonBox Logo"
+             onerror="this.style.display='none'">
+        <span style="font-size:2.1rem;font-weight:900;letter-spacing:-1.5px;color:var(--text)">
+          Moon<span style="color:var(--accent)">Box</span>
+        </span>
+      </a>
+      <p>&#x1F3AC; Anime &nbsp;&#x1F409; Donghua &nbsp;&#x1F1E8;&#x1F1F3; Dracin &nbsp;&#x1F338; Drakor &nbsp;&#x1F4D6; Manga &nbsp;&#x1F4DA; Manhwa</p>
+    </div>
+
+    <div class="login-card">
+      <div class="login-tabs">
+        <button class="login-tab active" data-tab="login">Masuk</button>
+        <button class="login-tab" data-tab="register">Daftar</button>
+      </div>
+
+      <!-- Login Panel -->
+      <div class="login-panel active" id="panel-login">
+        <h2>Selamat Datang</h2>
+        <p class="sub">Masuk untuk menikmati semua konten</p>
+        <div class="auth-msg" id="panel-login-msg"></div>
+        <button class="btn-google">
+          <svg viewBox="0 0 24 24" width="19" height="19"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Masuk dengan Google
+        </button>
+        <div class="divider">atau dengan email</div>
+        <div class="form-group"><label for="login-email">Email</label><input type="email" id="login-email" placeholder="nama@contoh.com" autocomplete="email"></div>
+        <div class="form-group"><label for="login-pass">Password</label><input type="password" id="login-pass" placeholder="&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;" autocomplete="current-password"></div>
+        <button class="btn-submit" id="btn-login">Masuk Sekarang &#x2192;</button>
+        <div class="login-footer">Belum punya akun? <a href="#" onclick="LoginUI.switchTab('register');return false">Daftar gratis</a></div>
+      </div>
+
+      <!-- Register Panel -->
+      <div class="login-panel" id="panel-register">
+        <h2>Buat Akun</h2>
+        <p class="sub">Gratis selamanya, daftar sekarang</p>
+        <div class="auth-msg" id="panel-register-msg"></div>
+        <button class="btn-google">
+          <svg viewBox="0 0 24 24" width="19" height="19"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Daftar dengan Google
+        </button>
+        <div class="divider">atau isi form</div>
+        <div class="form-group"><label for="reg-name">Username</label><input type="text" id="reg-name" placeholder="NamaKeren123" autocomplete="username"></div>
+        <div class="form-group"><label for="reg-email">Email</label><input type="email" id="reg-email" placeholder="nama@contoh.com" autocomplete="email"></div>
+        <div class="form-group"><label for="reg-pass">Password</label><input type="password" id="reg-pass" placeholder="Minimal 6 karakter" autocomplete="new-password"></div>
+        <div class="form-group"><label for="reg-pass2">Ulangi Password</label><input type="password" id="reg-pass2" placeholder="&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;" autocomplete="new-password"></div>
+        <button class="btn-submit" id="btn-register">Buat Akun &#x2192;</button>
+        <div class="login-footer">Sudah punya akun? <a href="#" onclick="LoginUI.switchTab('login');return false">Masuk di sini</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MAIN APP ═══ -->
+<div id="mainApp" style="display:none">
+
+  <!-- NAV -->
+  <nav id="mainNav">
+    <!-- Logo + Name -->
+    <a class="nav-logo" href="#">
+      <img class="logo-img" src="https://files.catbox.moe/vwr8lu.png" alt="MoonBox"
+           onerror="this.style.display='none'">
+      Moon<span>Box</span>
+    </a>
+
+    <!-- 6-Tab Pill -->
+    <div class="nav-switcher" id="navSwitcher">
+      <div class="nav-switcher-pill" id="switcherPill"></div>
+      <button class="nav-tab active" data-section="anime"   onclick="switchSection(this)"><i class="tab-icon">&#x1F3AC;</i><span class="tab-label">Anime</span></button>
+      <button class="nav-tab"        data-section="donghua" onclick="switchSection(this)"><i class="tab-icon">&#x1F409;</i><span class="tab-label">Donghua</span></button>
+      <button class="nav-tab"        data-section="dracin"  onclick="switchSection(this)"><i class="tab-icon">&#x1F1E8;&#x1F1F3;</i><span class="tab-label">Dracin</span></button>
+      <button class="nav-tab"        data-section="drakor"  onclick="switchSection(this)"><i class="tab-icon">&#x1F338;</i><span class="tab-label">Drakor</span></button>
+      <button class="nav-tab"        data-section="manga"   onclick="switchSection(this)"><i class="tab-icon">&#x1F4D6;</i><span class="tab-label">Manga</span></button>
+      <button class="nav-tab"        data-section="manhwa"  onclick="switchSection(this)"><i class="tab-icon">&#x1F4DA;</i><span class="tab-label">Manhwa</span></button>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-search-wrap">
+        <div class="nav-search">
+          <span>&#x1F50D;</span>
+          <input type="search" placeholder="Cari di MoonBox..." oninput="onSearchInput(event)" autocomplete="off">
+        </div>
+        <div class="search-results-drop" id="searchDrop"></div>
+      </div>
+      <div class="theme-toggle-wrap">
+        <span class="theme-label" id="themeLabel">&#x1F319;</span>
+        <div class="theme-toggle" onclick="toggleTheme()" title="Ganti tema"></div>
+      </div>
+      <div class="user-avatar" id="userAvatar">
+        <span class="av-initial">U</span>
+        <img class="av-img" src="" alt="" style="display:none;position:absolute;width:100%;height:100%;border-radius:50%;object-fit:cover">
+        <div class="user-menu">
+          <div class="user-menu-item" style="font-weight:700;color:var(--text)" id="menuUsername">Pengguna</div>
+          <div class="user-menu-divider"></div>
+          <div class="user-menu-item">&#x2764;&#xFE0F; Favorit</div>
+          <div class="user-menu-item">&#x1F4DC; Riwayat</div>
+          <div class="user-menu-item">&#x2699;&#xFE0F; Pengaturan</div>
+          <div class="user-menu-divider"></div>
+          <div class="user-menu-item danger" onclick="logout()">&#x1F6AA; Keluar</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ══ ANIME ══ -->
+    <div class="section active" id="sec-anime">
+      <div class="hero" onclick="openPlayer('Demon Slayer: Kimetsu no Yaiba')">
+        <div class="hero-bg" style="background:linear-gradient(135deg,#0d0521,#1a0a35 35%,#0d1f3c 70%,#051a2e)">
+          <div style="position:absolute;top:50%;right:10%;transform:translateY(-50%);font-size:9rem;opacity:.18;filter:blur(1px)">&#x2694;&#xFE0F;</div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-badge">&#x26A1; TRENDING #1</div>
+          <div class="hero-title">Demon Slayer<br>Kimetsu no Yaiba</div>
+          <div class="hero-meta"><span class="hero-score">&#x2605; 9.1</span><span>&#x1F3AC; Season 3</span><span>&#x1F4C5; 2024</span><span>&#x1F3F7;&#xFE0F; Action &middot; Fantasy</span></div>
+          <div class="hero-actions">
+            <button class="btn-primary">&#x25B6;&#xFE0F; Tonton Sekarang</button>
+            <button class="btn-ghost" onclick="event.stopPropagation();showToast('\u2139\uFE0F Info detail!')">&#x2139;&#xFE0F; Info</button>
+          </div>
+        </div>
+      </div>
+      <div class="row-section">
+        <div class="row-header"><h2>&#x1F525; Populer Minggu Ini</h2><a href="#" class="see-all">Lihat Semua &#x2192;</a></div>
+        <div class="cards-scroll" id="anime-trending"></div>
+      </div>
+      <div class="row-section">
+        <div class="row-header"><h2>&#x1F195; Season Ini</h2><a href="#" class="see-all">Lihat Semua &#x2192;</a></div>
+        <div class="cards-scroll" id="anime-season"></div>
+      </div>
+      <div class="genre-section">
+        <h2>&#x1F3AD; Genre</h2>
+        <div class="genre-tags">
+          <div class="genre-tag active" onclick="filterGenre(this,'anime','all')">Semua</div>
+          <div class="genre-tag" onclick="filterGenre(this,'anime',1)">Action</div>
+          <div class="genre-tag" onclick="filterGenre(this,'anime',22)">Romance</div>
+          <div class="genre-tag" onclick="filterGenre(this,'anime',10)">Fantasy</div>
+          <div class="genre-tag" onclick="filterGenre(this,'anime',24)">Sci-Fi</div>
+          <div class="genre-tag" onclick="filterGenre(this,'anime',14)">Horror</div>
+          <div class="genre-tag" onclick="filterGenre(this,'anime',36)">Slice of Life</div>
+          <div class="genre-tag" onclick="filterGenre(this,'anime',30)">Sports</div>
+          <div class="genre-tag" onclick="filterGenre(this,'anime',41)">Isekai</div>
+          <div class="genre-tag" onclick="filterGenre(this,'anime',18)">Mecha</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ DONGHUA ══ -->
+    <div class="section" id="sec-donghua">
+      <div class="hero" onclick="openPlayer('Heaven Official\'s Blessing')">
+        <div class="hero-bg" style="background:linear-gradient(135deg,#001a0d,#00331a 35%,#001a0d 70%,#000d07)">
+          <div style="position:absolute;top:50%;right:10%;transform:translateY(-50%);font-size:9rem;opacity:.18;filter:blur(1px)">&#x1F409;</div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-badge">&#x1F409; DONGHUA #1</div>
+          <div class="hero-title">Heaven Official's<br>Blessing</div>
+          <div class="hero-meta"><span class="hero-score">&#x2605; 9.0</span><span>&#x1F3AC; Season 2</span><span>&#x1F4C5; 2023</span><span>&#x1F3F7;&#xFE0F; Xianxia</span></div>
+          <div class="hero-actions"><button class="btn-primary">&#x25B6;&#xFE0F; Tonton Sekarang</button></div>
+        </div>
+      </div>
+      <div class="row-section">
+        <div class="row-header"><h2>&#x1F409; Donghua Populer</h2><a href="#" class="see-all">Lihat Semua &#x2192;</a></div>
+        <div class="cards-scroll" id="donghua-popular"></div>
+      </div>
+      <div class="row-section">
+        <div class="row-header"><h2>&#x1F4FA; ONA Terbaik</h2><a href="#" class="see-all">Lihat Semua &#x2192;</a></div>
+        <div class="cards-scroll" id="donghua-ona"></div>
+      </div>
+      <div class="genre-section">
+        <h2>&#x1F3AD; Genre</h2>
+        <div class="genre-tags">
+          <div class="genre-tag active" onclick="filterGenre(this,'donghua','all')">Semua</div>
+          <div class="genre-tag" onclick="filterGenre(this,'donghua',1)">Action</div>
+          <div class="genre-tag" onclick="filterGenre(this,'donghua',10)">Fantasy</div>
+          <div class="genre-tag" onclick="filterGenre(this,'donghua',22)">Romance</div>
+          <div class="genre-tag" onclick="showToast('Filter: Xianxia')">Xianxia</div>
+          <div class="genre-tag" onclick="showToast('Filter: Wuxia')">Wuxia</div>
+          <div class="genre-tag" onclick="showToast('Filter: Cultivation')">Cultivation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ DRACIN ══ -->
+    <div class="section" id="sec-dracin">
+      <div class="hero" onclick="openPlayer('Nirvana in Fire')">
+        <div class="hero-bg" style="background:linear-gradient(135deg,#1a0a00,#331400 35%,#1a0a00 70%,#0d0700)">
+          <div style="position:absolute;top:50%;right:10%;transform:translateY(-50%);font-size:9rem;opacity:.18;filter:blur(1px)">&#x1F1E8;&#x1F1F3;</div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-badge">&#x1F1E8;&#x1F1F3; DRAMA CHINA #1</div>
+          <div class="hero-title">Nirvana in Fire<br>&#x70DF;&#x96E8;&#x5FE0;&#x9B42;</div>
+          <div class="hero-meta"><span class="hero-score">&#x2605; 9.2</span><span>&#x1F4FA; iQIYI</span><span>&#x1F4C5; 2015</span><span>&#x1F3F7;&#xFE0F; Historical &middot; Wuxia</span></div>
+          <div class="hero-actions">
+            <button class="btn-primary">&#x25B6;&#xFE0F; Tonton Sekarang</button>
+            <button class="btn-ghost" onclick="event.stopPropagation();showToast('\u2139\uFE0F Info detail!')">&#x2139;&#xFE0F; Info</button>
+          </div>
+        </div>
+      </div>
+      <div class="row-section">
+        <div class="row-header"><h2>&#x1F1E8;&#x1F1F3; Drama China Populer</h2><a href="#" class="see-all">Lihat Semua &#x2192;</a></div>
+        <div class="cards-scroll" id="dracin-popular"></div>
+      </div>
+      <div class="row-section">
+        <div class="row-header"><h2>&#x2B50; Rating Tertinggi</h2><a href="#" class="see-all">Lihat Semua &#x2192;</a></div>
+        <div class="cards-scroll" id="dracin-top"></div>
+      </div>
+      <div class="genre-section">
+        <h2>&#x1F3AD; Genre</h2>
+        <div class="genre-tags">
+          <div class="genre-tag active" onclick="filterGenre(this,'dracin','all')">Semua</div>
+          <div class="genre-tag" onclick="filterGenre(this,'dracin','wuxia')">Wuxia</div>
+          <div class="genre-tag" onclick="filterGenre(this,'dracin','romance')">Romance</div>
+          <div class="genre-tag" onclick="showToast('Filter: Xianxia')">Xianxia</div>
+          <div class="genre-tag" onclick="showToast('Filter: Historical')">Historical</div>
+          <div class="genre-tag" onclick="showToast('Filter: Modern')">Modern</div>
+          <div class="genre-tag" onclick="showToast('Filter: Thriller')">Thriller</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ DRAKOR ══ -->
+    <div class="section" id="sec-drakor">
+      <div class="hero" onclick="openPlayer('Queen of Tears')">
+        <div class="hero-bg" style="background:linear-gradient(135deg,#1a0514,#2d0a1f 35%,#1a0d2e 70%,#0d0521)">
+          <div style="position:absolute;top:50%;right:10%;transform:translateY(-50%);font-size:9rem;opacity:.18;filter:blur(1px)">&#x1F338;</div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-badge">&#x1F338; DRAMA KOREA #1</div>
+          <div class="hero-title">Queen of Tears</div>
+          <div class="hero-meta"><span class="hero-score">&#x2605; 9.0</span><span>&#x1F4FA; tvN</span><span>&#x1F4C5; 2024</span><span>&#x1F3F7;&#xFE0F; Romance &middot; Drama</span></div>
+          <div class="hero-actions"><button class="btn-primary">&#x25B6;&#xFE0F; Tonton Sekarang</button></div>
+        </div>
+      </div>
+      <div class="row-section">
+        <div class="row-header"><h2>&#x2764;&#xFE0F; Drama Korea Populer</h2><a href="#" class="see-all">Lihat Semua &#x2192;</a></div>
+        <div class="cards-scroll" id="drakor-popular"></div>
+      </div>
+      <div class="row-section">
+        <div class="row-header"><h2>&#x2B50; Rating Tertinggi</h2><a href="#" class="see-all">Lihat Semua &#x2192;</a></div>
+        <div class="cards-scroll" id="drakor-top"></div>
+      </div>
+      <div class="genre-section">
+        <h2>&#x1F3AD; Genre</h2>
+        <div class="genre-tags">
+          <div class="genre-tag active" onclick="filterGenre(this,'drakor','all')">Semua</div>
+          <div class="genre-tag" onclick="showToast('Filter: Romance')">Romance</div>
+          <div class="genre-tag" onclick="showToast('Filter: Thriller')">Thriller</div>
+          <div class="genre-tag" onclick="showToast('Filter: Saeguk')">Saeguk</div>
+          <div class="genre-tag" onclick="showToast('Filter: Fantasy')">Fantasy</div>
+          <div class="genre-tag" onclick="showToast('Filter: Comedy')">Comedy</div>
+          <div class="genre-tag" onclick="showToast('Filter: Medical')">Medical</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MANGA ══ -->
+    <div class="section" id="sec-manga">
+      <div class="hero" onclick="openReader('One Piece')">
+        <div class="hero-bg" style="background:linear-gradient(135deg,#1a0d00,#2e2000 35%,#1a1400 70%,#0d0a00)">
+          <div style="position:absolute;top:50%;right:10%;transform:translateY(-50%);font-size:9rem;opacity:.18;filter:blur(1px)">&#x1F4D6;</div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-badge">&#x1F4D6; MANGA #1</div>
+          <div class="hero-title">One Piece<br>Volume 107</div>
+          <div class="hero-meta"><span class="hero-score">&#x2605; 9.3</span><span>&#x1F4D6; Ch.1100</span><span>&#x1F3F7;&#xFE0F; Adventure</span></div>
+          <div class="hero-actions"><button class="btn-primary">&#x1F4D6; Baca Sekarang</button></div>
+        </div>
+      </div>
+      <div class="row-section">
+        <div class="row-header"><h2>&#x1F4DA; Manga Trending</h2><a href="#" class="see-all">Lihat Semua &#x2192;</a></div>
+        <div class="cards-scroll" id="manga-top"></div>
+      </div>
+      <div class="row-section">
+        <div class="row-header"><h2>&#x1F525; Action Terbaik</h2><a href="#" class="see-all">Lihat Semua &#x2192;</a></div>
+        <div class="cards-scroll" id="manga-action"></div>
+      </div>
+      <div class="genre-section">
+        <h2>&#x1F3AD; Genre</h2>
+        <div class="genre-tags">
+          <div class="genre-tag active" onclick="filterGenre(this,'manga','all')">Semua</div>
+          <div class="genre-tag" onclick="filterGenre(this,'manga',27)">Shounen</div>
+          <div class="genre-tag" onclick="filterGenre(this,'manga',42)">Seinen</div>
+          <div class="genre-tag" onclick="filterGenre(this,'manga',25)">Shoujo</div>
+          <div class="genre-tag" onclick="filterGenre(this,'manga',1)">Action</div>
+          <div class="genre-tag" onclick="filterGenre(this,'manga',10)">Fantasy</div>
+          <div class="genre-tag" onclick="filterGenre(this,'manga',7)">Mystery</div>
+          <div class="genre-tag" onclick="filterGenre(this,'manga',22)">Romance</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MANHWA ══ -->
+    <div class="section" id="sec-manhwa">
+      <div class="hero" onclick="openReader('Solo Leveling Ragnarok')">
+        <div class="hero-bg" style="background:linear-gradient(135deg,#05051a,#0d0d35 35%,#050514 70%,#02020d)">
+          <div style="position:absolute;top:50%;right:10%;transform:translateY(-50%);font-size:9rem;opacity:.18;filter:blur(1px)">&#x1F451;</div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-badge">&#x1F4DA; MANHWA #1</div>
+          <div class="hero-title">Solo Leveling<br>Ragnarok</div>
+          <div class="hero-meta"><span class="hero-score">&#x2605; 9.2</span><span>&#x1F4D6; Ch.200</span><span>&#x1F3F7;&#xFE0F; Action &middot; Fantasy</span></div>
+          <div class="hero-actions"><button class="btn-primary">&#x1F4D6; Baca Sekarang</button></div>
+        </div>
+      </div>
+      <div class="row-section">
+        <div class="row-header"><h2>&#x26A1; Manhwa Terpopuler</h2><a href="#" class="see-all">Lihat Semua &#x2192;</a></div>
+        <div class="cards-scroll" id="manhwa-top"></div>
+      </div>
+      <div class="row-section">
+        <div class="row-header"><h2>&#x1F525; Action Terbaik</h2><a href="#" class="see-all">Lihat Semua &#x2192;</a></div>
+        <div class="cards-scroll" id="manhwa-action"></div>
+      </div>
+      <div class="genre-section">
+        <h2>&#x1F3AD; Genre</h2>
+        <div class="genre-tags">
+          <div class="genre-tag active" onclick="filterGenre(this,'manhwa','all')">Semua</div>
+          <div class="genre-tag" onclick="filterGenre(this,'manhwa',1)">Hunter</div>
+          <div class="genre-tag" onclick="filterGenre(this,'manhwa',41)">Regression</div>
+          <div class="genre-tag" onclick="filterGenre(this,'manhwa',22)">Romance</div>
+          <div class="genre-tag" onclick="filterGenre(this,'manhwa',42)">System</div>
+          <div class="genre-tag" onclick="filterGenre(this,'manhwa',10)">Fantasy</div>
+          <div class="genre-tag" onclick="filterGenre(this,'manhwa',7)">Mystery</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Player Modal -->
+<div id="playerModal">
+  <div class="player-box">
+    <div class="player-screen">
+      <div class="player-ph">&#x1F3AC;</div>
+      <div class="player-note">Stream tersedia setelah integrasi sumber video</div>
+      <div class="player-controls">
+        <button class="ctrl-btn"><svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg></button>
+        <button class="ctrl-btn" id="playPauseBtn" onclick="togglePlay()"><svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button>
+        <button class="ctrl-btn"><svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M6 18l8.5-6L6 6v12zm2.5-6 5.5 3.92V8.08L8.5 12zM16 6h2v12h-2z"/></svg></button>
+        <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
+        <button class="ctrl-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></button>
+        <button class="ctrl-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+      </div>
+    </div>
+    <div class="player-bottom">
+      <div><div class="player-title-text" id="playerTitle">Judul</div><div class="player-ep-text" id="playerEp">Episode 1</div></div>
+      <button class="btn-ghost sm" onclick="closePlayer()">&#x2715; Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- Reader Modal -->
+<div id="readerModal">
+  <div class="reader-nav">
+    <div class="reader-nav-info">
+      <div class="reader-nav-title" id="readerTitle">Judul</div>
+      <div class="reader-nav-ch" id="readerCh">Chapter 1</div>
+    </div>
+    <div class="reader-nav-actions">
+      <button class="btn-ghost sm">&#x25C4; Prev</button>
+      <button class="btn-ghost sm">Next &#x25BA;</button>
+      <button class="btn-ghost sm" onclick="closeReader()">&#x2715; Tutup</button>
+    </div>
+  </div>
+  <div class="reader-content">
+    <div class="reader-page"><div class="reader-page-ph">&#x1F5BC;&#xFE0F;<small>Halaman 1 &mdash; Konten tersedia setelah integrasi server</small></div></div>
+    <div class="reader-page"><div class="reader-page-ph">&#x1F5BC;&#xFE0F;<small>Halaman 2</small></div></div>
+    <div class="reader-page"><div class="reader-page-ph">&#x1F5BC;&#xFE0F;<small>Halaman 3</small></div></div>
+    <div class="reader-page"><div class="reader-page-ph">&#x1F5BC;&#xFE0F;<small>Halaman 4</small></div></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="/js/auth.js"></script>
+<script src="/js/app.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    applyTheme(localStorage.getItem('av-theme') || 'dark');
+    LoginUI.init();
+    const user = Auth.getUser();
+    if (user) {
+      document.getElementById('loginScreen').style.display = 'none';
+      window.App.boot(user);
+    }
+  });
+</script>
+</body>
+</html>
