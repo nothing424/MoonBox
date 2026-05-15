@@ -13,9 +13,9 @@
     "JIKAN_BASE_URL":       "https://api.jikan.moe/v4",
     "TMDB_BASE_URL":        "https://api.themoviedb.org/3",
     "TMDB_IMG_BASE":        "https://image.tmdb.org/t/p/w500",
-    "TMDB_API_KEY":         "@tmdb_api_key",
-    "SUPABASE_URL":         "@supabase_url",
-    "SUPABASE_SERVICE_KEY": "@supabase_service_key",
-    "SUPABASE_ANON_KEY":    "@supabase_anon_key"
+    "TMDB_API_KEY":         "967aa1c3762f33861054e2a31275ee1f",
+    "SUPABASE_URL":         "https://ootyeleslhrnelpthaat.supabase.co",
+    "SUPABASE_SERVICE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9vdHllbGVzbGhybmVscHRoYWF0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODgyNDQ4MSwiZXhwIjoyMDk0NDAwNDgxfQ.JzvQz-3rCg1-9-2zlbCDPAbuWpSqDoOvJJqba2_gDiw",
+    "SUPABASE_ANON_KEY":    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9vdHllbGVzbGhybmVscHRoYWF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4MjQ0ODEsImV4cCI6MjA5NDQwMDQ4MX0.dk-mA2nQnYoY0zgpAzKxbvXY4IAVbJJ3fU83LL-S4V8"
   }
 }
