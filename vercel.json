@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 1,
   "name": "moonbox",
   "builds": [
     { "src": "api/**/*.js", "use": "@vercel/node" },
@@ -7,7 +7,9 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)",     "dest": "/public/$1" }
+    { "src": "/callback", "dest": "/public/callback.html" },
+    { "src": "/callback.html", "dest": "/public/callback.html" },
+    { "src": "/(.*)", "dest": "/public/$1" }
   ],
   "env": {
     "JIKAN_BASE_URL":       "https://api.jikan.moe/v4",
